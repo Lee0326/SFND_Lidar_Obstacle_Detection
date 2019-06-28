@@ -44,24 +44,25 @@ struct KdTree
 		// the function should create a new node and place correctly with in the root 
 		insertHelper(&root, 0, point, id);
 	}
-	void searchHelper(Node* node, uint depth, std::vector<float> target, float distanceTol, std::vector<int> ids)
+	void searchHelper(Node* node, uint depth, std::vector<float> target, float distanceTol, std::vector<int>&ids)
 	{	
-		int cd = depth%2;
+		//cout << "if the node is NULL: " << (node != NULL) <<endl;		
 		if (node != NULL)
 		{
-			if ((node->point[0]<(target[0]+distanceTol))&&(node->point[0]>(target[0]-distanceTol))
-			&&(node->point[1]<(target[1]+distanceTol))&&(node->point[1]>(target[1]+distanceTol)))
+			bool in_box = ( (node->point[0]>=(target[0]-distanceTol)&&node->point[0]<=(target[0]+distanceTol))&&(node->point[1]>=(target[1]-distanceTol)&&node->point[1]<=(target[1]+distanceTol)));
+			if (in_box)
 			{
-				if (sqrt((node->point[0]-target[0])*(node->point[0]-target[0])+(node->point[1]-target[1])*(node->point[1]-target[1])) < 
-				distanceTol)
+				float distance = sqrt((node->point[0]-target[0])*(node->point[0]-target[0])+(node->point[1]-target[1])*(node->point[1]-target[1]));	
+				if (distance <= distanceTol)
 				{
 					ids.push_back(node->id);
-				}
-				if (node->point[cd]>(target[cd]+distanceTol))
-					searchHelper(node->left,depth+1,target, distanceTol,ids);
-				if (node->point[cd]<(target[cd]-distanceTol))
-					searchHelper(node->right,depth+1,target, distanceTol,ids);
+				}	
 			}
+			if (node->point[depth%2]>(target[depth%2]-distanceTol))
+				searchHelper(node->left,depth+1,target, distanceTol,ids);
+			if (node->point[depth%2]<(target[depth%2]+distanceTol))
+				searchHelper(node->right,depth+1,target, distanceTol,ids);
+			
 		}
 
 
