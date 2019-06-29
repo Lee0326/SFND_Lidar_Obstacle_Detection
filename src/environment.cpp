@@ -40,7 +40,12 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr& viewer)
     // ----------------------------------------------------
     ProcessPointClouds<pcl::PointXYZI>* pointProcessorI = new ProcessPointClouds<pcl::PointXYZI>();
     pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud = pointProcessorI->loadPcd("../src/sensors/data/pcd/data_1/0000000000.pcd");
-    renderPointCloud(viewer,inputCloud,"inputCloud");
+    pcl::PointCloud<pcl::PointXYZI>::Ptr cloudFiltered = pointProcessorI->FilterCloud(inputCloud, 0.2, Eigen::Vector4f (-15, -7, -10, 1), Eigen::Vector4f (15,7,10,1));
+    std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr, pcl::PointCloud<pcl::PointXYZI>::Ptr> segmentCloud = pointProcessorI->SegmentPlane(cloudFiltered, 100, 0.2);
+    renderPointCloud(viewer, segmentCloud.first, "obsCloud", Color(1,0,0));
+    renderPointCloud(viewer, segmentCloud.second, "roadCloud", Color(0,1,0));
+    // renderPointCloud(viewer,cloudFiltered,"filtered cloud");
+    
 }
 
 

@@ -34,11 +34,35 @@ typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::FilterCloud(ty
     vg.setLeafSize (filterRes,filterRes,filterRes);
     vg.filter (*cloudfiltered);
 
+    typename pcl::PointCloud<PointT>::Ptr cloudRegion (new pcl::PointCloud<PointT>);
+    pcl::CropBox<PointT> cb (true);
+    cb.setMax (maxPoint);
+    cb.setMin (minPoint);
+    cb.setInputCloud (cloudfiltered);
+    cb.filter (*cloudRegion);
+
+    std::vector<int> indices;
+    pcl::CropBox<PointT> roof (true);
+    roof.setMax (Eigen::Vector4f (-1.5, -1.7, -1, 1));
+    roof.setMin (Eigen::Vector4f (2.6, 1.7, -0.4, 1));
+    roof.setInputCloud (cloudRegion);
+    roof.filter (indices);
+
+    pcl::PointIndices::Ptr inliers {new pcl::PointIndices};
+    for (auto index : indices)
+        inliers->indices.push_back(index);
+
+    pcl::ExtractIndices<PointT> extract;
+    extract.setInputCloud (cloudRegion);
+    extract.setIndices (inliers);
+    extract.setNegative (true);
+    extract.filter (*cloudRegion);
+
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
     std::cout << "filtering took " << elapsedTime.count() << " milliseconds" << std::endl;
 
-    return cloudfiltered;
+    return cloudRegion;
 
 }
 
@@ -70,7 +94,7 @@ std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT
     // TODO:: Fill in this function to find inliers for the cloud.
     pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients());
     // create the segmentation object
-    pcl::SACSegmentation<pcl::PointXYZ> seg;
+    typename pcl::SACSegmentation<PointT> seg;
     seg.setOptimizeCoefficients(true);
     seg.setModelType (pcl::SACMODEL_PLANE);
     seg.setMethodType (pcl::SAC_RANSAC);
