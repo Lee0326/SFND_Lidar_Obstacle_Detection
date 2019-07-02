@@ -4,15 +4,14 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/adam/Udacity/SFND_Lidar_Obstacle_Detection/src/environment.cpp" "/home/adam/Udacity/SFND_Lidar_Obstacle_Detection/build/CMakeFiles/environment.dir/src/environment.cpp.o"
-  "/home/adam/Udacity/SFND_Lidar_Obstacle_Detection/src/processPointClouds.cpp" "/home/adam/Udacity/SFND_Lidar_Obstacle_Detection/build/CMakeFiles/environment.dir/src/processPointClouds.cpp.o"
-  "/home/adam/Udacity/SFND_Lidar_Obstacle_Detection/src/render/render.cpp" "/home/adam/Udacity/SFND_Lidar_Obstacle_Detection/build/CMakeFiles/environment.dir/src/render/render.cpp.o"
+  "/home/lee/Udacity/SFND_Lidar_Obstacle_Detection/src/environment.cpp" "/home/lee/Udacity/SFND_Lidar_Obstacle_Detection/build/CMakeFiles/environment.dir/src/environment.cpp.o"
+  "/home/lee/Udacity/SFND_Lidar_Obstacle_Detection/src/processPointClouds.cpp" "/home/lee/Udacity/SFND_Lidar_Obstacle_Detection/build/CMakeFiles/environment.dir/src/processPointClouds.cpp.o"
+  "/home/lee/Udacity/SFND_Lidar_Obstacle_Detection/src/render/render.cpp" "/home/lee/Udacity/SFND_Lidar_Obstacle_Detection/build/CMakeFiles/environment.dir/src/render/render.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 set(CMAKE_TARGET_DEFINITIONS_CXX
-  "DISABLE_OPENNI2"
   "DISABLE_PCAP"
   "DISABLE_PNG"
   "EIGEN_USE_NEW_STDVECTOR"
@@ -38,21 +37,22 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/include/vtk-6.2"
-  "/usr/include/x86_64-linux-gnu"
   "/usr/include/freetype2"
   "/usr/include/x86_64-linux-gnu/freetype2"
+  "/usr/include/x86_64-linux-gnu"
+  "/usr/include/hdf5/openmpi"
   "/usr/lib/openmpi/include/openmpi/opal/mca/event/libevent2021/libevent"
   "/usr/lib/openmpi/include/openmpi/opal/mca/event/libevent2021/libevent/include"
   "/usr/lib/openmpi/include"
   "/usr/lib/openmpi/include/openmpi"
-  "/usr/include/hdf5/openmpi"
-  "/usr/include/python2.7"
   "/usr/include/jsoncpp"
-  "/usr/include/libxml2"
   "/usr/include/tcl"
+  "/usr/include/python2.7"
+  "/usr/include/libxml2"
   "/usr/include/pcl-1.7"
   "/usr/include/eigen3"
   "/usr/include/ni"
+  "/usr/include/openni2"
   "/usr/include/x86_64-linux-gnu/qt5"
   "/usr/include/x86_64-linux-gnu/qt5/QtWidgets"
   "/usr/include/x86_64-linux-gnu/qt5/QtGui"

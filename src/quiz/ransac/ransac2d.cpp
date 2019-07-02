@@ -96,7 +96,7 @@ std::unordered_set<int> Ransac(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, int ma
 		y3 = cloud->points[*itr].y;
 		z3 = cloud->points[*itr].z;
 
-		float A = (y2-y1)*(z3-z1)-(z2-z1)*(y3-y1);
+		float A = (y2-y1)*(z3-z1)-(z2-z1)*(y3-y1); 
 		float B = (z2-z1)*(x3-x1)-(x2-x1)*(z3-z1);
 		float C = (x2-x1)*(y3-y1)-(y2-y1)*(x3-x1);
 		float D = -(A*x1 + B*y1 + C*z1);
