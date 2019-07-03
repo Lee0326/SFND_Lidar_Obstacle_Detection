@@ -16,6 +16,8 @@ processPointClouds.h
 processPointClouds.cpp
 /home/lee/Udacity/SFND_Lidar_Obstacle_Detection/src/processPointClouds.cpp
 
+/home/lee/Udacity/SFND_Lidar_Obstacle_Detection/src/kdtree.h
+
 /home/lee/Udacity/SFND_Lidar_Obstacle_Detection/src/processPointClouds.cpp
 processPointClouds.h
 /home/lee/Udacity/SFND_Lidar_Obstacle_Detection/src/processPointClouds.h
@@ -53,6 +55,8 @@ render/box.h
 /home/lee/Udacity/SFND_Lidar_Obstacle_Detection/src/render/box.h
 unordered_set
 -
+kdtree.h
+/home/lee/Udacity/SFND_Lidar_Obstacle_Detection/src/kdtree.h
 
 /home/lee/Udacity/SFND_Lidar_Obstacle_Detection/src/render/box.h
 Eigen/Geometry

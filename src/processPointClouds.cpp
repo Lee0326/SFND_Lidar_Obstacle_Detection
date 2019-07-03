@@ -237,6 +237,17 @@ std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::C
         clusters.push_back(cloud_cluster);
         j++;
     }
+    // TODO:: Using own created kdtree to realise clustering
+    KdTree* kdtree = new KdTree;
+    std::vector<std::vector<float>> points;
+    for (int i = 0; i<cloud->points.size(); i++)
+    {
+        std::vector<float> point = {cloud->points[i].x, cloud->points[i].y, cloud->points[i].z};
+        points.push_back(point);
+    }
+    for (int i=0; i<points.size(); i++)
+        kdtree->insert(points[i], i);
+
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
     std::cout << "clustering took " << elapsedTime.count() << " milliseconds and found " << clusters.size() << " clusters" << std::endl;
