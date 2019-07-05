@@ -40,12 +40,12 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr& viewer, ProcessPointCloud
     // ----------------------------------------------------
     // ProcessPointClouds<pcl::PointXYZI>* pointProcessorI = new ProcessPointClouds<pcl::PointXYZI>();
     // pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud = pointProcessorI->loadPcd("../src/sensors/data/pcd/data_1/0000000000.pcd");
-    pcl::PointCloud<pcl::PointXYZI>::Ptr cloudFiltered = pointProcessorI->FilterCloud(inputCloud, 0.1, Eigen::Vector4f (-15, -7, -10, 1), Eigen::Vector4f (15,7,10,1));
+    pcl::PointCloud<pcl::PointXYZI>::Ptr cloudFiltered = pointProcessorI->FilterCloud(inputCloud, 0.11, Eigen::Vector4f (-15, -5, -10, 1), Eigen::Vector4f (15,7,10,1));
     std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr, pcl::PointCloud<pcl::PointXYZI>::Ptr> segmentCloud = pointProcessorI->SegmentPlane(cloudFiltered, 100, 0.2);
     //renderPointCloud(viewer, segmentCloud.first, "obsCloud", Color(1,0,0));
     renderPointCloud(viewer, segmentCloud.second, "roadCloud", Color(0,1,0));
     // renderPointCloud(viewer,cloudFiltered,"filtered cloud");
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> obsClusters = pointProcessorI->Clustering(segmentCloud.first, 0.3, 100, 3000);
+    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> obsClusters = pointProcessorI->Clustering(segmentCloud.first, 0.4, 30, 2000);
     int clusterId = 0;
     std::vector<Color> colors = {Color(1,0,0),Color(0,1,0), Color(0,0,1)};
     for (pcl::PointCloud<pcl::PointXYZI>::Ptr cluster : obsClusters)
@@ -121,7 +121,7 @@ int main (int argc, char** argv)
     std::cout << "starting enviroment" << std::endl;
 
     pcl::visualization::PCLVisualizer::Ptr viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
-    CameraAngle setAngle = XY;
+    CameraAngle setAngle = FPS;
     initCamera(setAngle, viewer);
     ProcessPointClouds<pcl::PointXYZI>* pointProcessorI = new ProcessPointClouds<pcl::PointXYZI>();
     std::vector<boost::filesystem::path> stream = pointProcessorI->streamPcd("../src/sensors/data/pcd/data_1");

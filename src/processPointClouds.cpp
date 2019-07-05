@@ -220,7 +220,7 @@ void ProcessPointClouds<PointT>::clusterHelpter(const std::vector<std::vector<fl
 }
 
 template<typename PointT>
-std::vector<std::vector<int>> ProcessPointClouds<PointT>::euclideanCluster(const std::vector<std::vector<float>>& points, KdTree* tree, float distanceTol)
+std::vector<std::vector<int>> ProcessPointClouds<PointT>::euclideanCluster(const std::vector<std::vector<float>>& points, KdTree* tree, float distanceTol, int minSize, int maxSize)
 {
 
 	// TODO: Fill out this function to return list of indices for each cluster
@@ -233,7 +233,8 @@ std::vector<std::vector<int>> ProcessPointClouds<PointT>::euclideanCluster(const
 		{
 			std::vector<int> cluster;
 			clusterHelpter(points, i, cluster,processed, tree, distanceTol);
-			clusters.push_back(cluster);
+            if ((cluster.size()>minSize)&&(cluster.size()<maxSize))
+			    clusters.push_back(cluster);
 		}
 	}
  
@@ -282,7 +283,7 @@ std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::C
     }
     for (int i=0; i<points.size(); i++)
         kdtree->insert(points[i], i);
-    std::vector<std::vector<int>> clusters_ids = euclideanCluster(points, kdtree, 1.0);
+    std::vector<std::vector<int>> clusters_ids = euclideanCluster(points, kdtree, clusterTolerance, minSize, maxSize);
     for(auto cluster : clusters_ids)
   	{
   		typename pcl::PointCloud<PointT>::Ptr clusterCloud(new pcl::PointCloud<PointT>());
